@@ -78,7 +78,7 @@ Copy the commands in the sections below and paste that in a macOS Terminal or Li
 
 ### a. Test if the evaluation server Astria is ready
 
-  Open a tab on your favourite browser by clicking on this link to [Astria](http://206.47.13.10:8080).
+  Open a tab on your favourite browser by clicking on this link to [Astria](http://ec2-35-174-166-72.compute-1.amazonaws.com:2027).
 
 ### b. Test if your Pegasus is ready to communicate with Astria
 
