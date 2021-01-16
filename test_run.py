@@ -90,19 +90,19 @@ if __name__ == '__main__':
     p = Pegasus(conf_file, test=True)
 
     ########################################
-    # Task for the next_prime problem: uncomment and make them work
+    # Test 3 times if my_next_prime function is correct
     #
     result = p.submit('next_prime', my_next_prime, 3)
     print('next_prime:', result)
 
     ########################################
-    # Task for the fake_coin problem: uncomment and make them work
+    # Test 3 times if my_fake_coin function is correct
     #
     result = p.submit('fake_coin', my_fake_coin, 3)
     print('fake_coin', result)
 
     ########################################
-    # Task for the move_sequence problem: uncomment and make them work
+    # Test 3 times if my_move_sequence function is correct
     #
     result = p.submit('move_sequence', my_move_sequence, 3)
     print('move_sequence', result)

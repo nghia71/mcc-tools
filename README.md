@@ -124,51 +124,64 @@ This implementation uses a helper function to determine if a number is a prime:
 
 An example is given for how to submit for this problem:
 
-  # Test 3 times if my_next_prime function is correct
-  #
-  result = p.submit('next_prime', my_next_prime, 3)
-  print('next_prime:', result)
+    # Test 3 times if my_next_prime function is correct
+    #
+    result = p.submit('next_prime', my_next_prime, 3)
+    print('next_prime:', result
+
+You should see this result when testing it against Astria:
+
+    next_prime: [['OK', '8', 11], ['OK', '3', 3], ['OK', '3', 3]]    
 
 #### 2. Problem Two: Find the fake coins
 ##### The problem: *There are eight identical-looking coins. One of them is a counterfeit (a fake coin) and lighter than the others. What is the minimum number of weighings needed to identify the fake coin with a two-pan balance scale and without weights? You are given a string of seven 1's and one 0. You have to simulate a weighing process to find the position of the fake coin.*
 
-In the code, there is an example implementation:
+If you see the list of coins as '10111111', you *know* that the second coin, or the character with index 1 in the '10111111' string, is a '0'. But of course you have to implement a function to determine this fake coin via weighing, not by looking into the string.
 
-    my_coins = '10111111'
-    result = p.submit('fake_coin', my_coins, my_fake_coin(my_coins))
-    print(result)
-
-So you *know* that the second coin, or the character with index 1 in the '10111111' string, is a '0'. But of course you have to implement a function to determine this fake coin via weighing, not by looking into the string.
-
-An incomplete implementation of `my_fake_coin` function is given:
+An implementation of `my_fake_coin` function is given:
 
     #
-    # This is an incomplete implementation. The test run fails in most of the cases.
+    # Find the position of the fake coin in two weighings
     #
     def my_fake_coin(coins):
-        if int(coins[0]) < int(coins[1])
-          return 0
-        return 1
+        my_coins = [int(c) for c in coins]  # Convert to integers
+        group_a, group_b, group_c = my_coins[0:3], my_coins[3:6], my_coins[6:]
+        weight_a, weight_b = sum(group_a), sum(group_b)
 
-In this implementation, the first coin and the second coin are obtained by getting the first and second characters from the string, converting them to integers and comparing them. If the first coin is 0 and the second is 1, then it will return 0 as the position of the fake coin. This is the first coin, in this case, meaning the coin at index 1 is fake. Of course this implementation is incomplete and will not work in most of the cases.
+        if weight_a < weight_b:  # First weighing, fake coin is in group A
+            if group_a[0] < group_a[1]:
+                return 0
+            elif group_a[0] > group_a[1]:
+                return 1
+            else:  # group_a[0] == group_a[1]
+                return 2
+        elif weight_a > weight_b:  # fake coin is in group B
+            if group_b[0] < group_b[1]:
+                return 3
+            elif group_b[0] > group_b[1]:
+                return 4
+            else:  # group_a[0] == group_a[1]
+                return 5
+        else:  # weight_a == weight_b, fake coin is in group C
+            if group_c[0] < group_c[1]:
+                return 6
+            else:  # group_c[0] < group_c[1]
+                return 7
 
-*Note: The problem asks to simulate how a BALANCE SCALE works. Searching the position of the 0 digit is not the purpose of the problem. Your submission might be successful, but your code will not be accepted.*
-
-##### The task: *Your implementation of my_fake_coin has to find the fake coin with a given random string representing the order of the coins*
-
-Similar to the first problem, now you have to create an  implementation for `my_fake_coin` and make sure that it works with the task. Uncomment and use the following code when you think you have the right answer.
+Similar to the first problem, the implementation for `my_fake_coin` can be tested bu using the following code.
 
     ########################################
-    # Task for the fake_coin problem: uncomment and make them work
+    # Test 3 times if my_fake_coin function is correct
     #
-    coins = ['0', '1', '1', '1', '1', '1', '1', '1']
-    shuffle(coins)
-    my_coins = ''.join(coins)
-    result = p.submit('fake_coin', my_coins, my_fake_coin(my_coins))
-    print(result)
+    result = p.submit('fake_coin', my_fake_coin, 3)
+    print('fake_coin', result)
 
-### Problem Three: Find the sequence of moves
-#### The problem: *A knight stand on a square in the 3x3 chessboard. The squares on the board are number 1 to 9 from the top to the bottom row and from left to right. The number of the square where the knight stands is the position of the knight. Given the position, find the sequence of numbers that representing the squares the knight visit, each once, before return to the original squares.*
+You should see this result when testing it against Astria:
+
+    next_prime: [['OK', '8', 11], ['OK', '3', 3], ['OK', '3', 3]]    
+
+#### 3. Problem Three: Find the sequence of moves
+##### The problem: *A knight stand on a square in the 3x3 chessboard. The squares on the board are number 1 to 9 from the top to the bottom row and from left to right. The number of the square where the knight stands is the position of the knight. Given the position, find the sequence of numbers that representing the squares the knight visit, each once, before return to the original squares.*
 
 So this is how the board looks like:
 
@@ -176,44 +189,37 @@ So this is how the board looks like:
     4 5 6
     7 8 9
 
-So from 1, you can move to 6 or 8. From 6 you can move to 7, but not back to 1, and so on.
-
-Again, a sample position is given
-
-    ########################################
-    # Sample test for the move_sequence problem
-    #
-    my_position ='7'
-    result = p.submit('move_sequence', my_position, my_move_sequence(my_position))
-    print(result)
-
-with an fake implementation
+So from 1, you can move to 6 or 8. From 6 you can move to 7, but not back to 1, and so on. Below is the correct implementation.
 
     #
-    # This is a fake implementation, it returns '16789234' or '18789234'.
-    # The test run will fail.
+    # Demonstrate the move sequence of a knight
     #
     def my_move_sequence(position):
-        move_sequence = my_position
-        next_position = ''
-        if my_position == '1':
-            next_position = choice(['6', '8'])
-            move_sequence = move_sequence + next_position
-            if next_position == '6':
-                next_position = '7'
-                move_sequence = move_sequence + next_position
-        return move_sequence
+        valid_moves = {
+            1: [6, 8], 2: [7, 9], 3: [4, 8], 4: [3, 9],
+            6: [1, 7], 7: [2, 6], 8: [1, 3], 9: [2, 4]
+        }
+
+        current_position = int(position)
+        move_sequence = [current_position]  # starts from the given position
+
+        while len(move_sequence) < 8:  # until all 8 moves are made
+            next_postion_1, next_postion_2 = valid_moves[current_position]
+            if next_postion_1 not in move_sequence:
+                current_position = next_postion_1
+                move_sequence.append(next_postion_1)
+            elif next_postion_2 not in move_sequence:
+                current_position = next_postion_2
+                move_sequence.append(next_postion_2)
+            else:
+                break
+        return ''.join(['%s' % i for i in move_sequence])
+
+You should see this result when testing it against Astria:
+
+    next_prime: [['OK', '8', 11], ['OK', '3', 3], ['OK', '3', 3]]    
 
 *Note: The problem asks to simulate move sequences, not to show done sequences. For example to simulate a move of a knight from square 1, you have two choices: square 6, or square 8. The way your code is written is to make the knight move on a preset sequence. You have to write a code that PLAYS the moves based on the chess rules.*
-
-##### The task: *Your implementation of my_move_sequence has to determine the sequence of move as a string of digits*
-
-    ########################################
-    # Task for the move_sequence problem: uncomment and make them work
-    #
-    my_position = choice(['1', '2', '3', '4', '6', '7', '8', '9'])
-    result = p.submit('move_sequence', my_position, my_move_sequence(my_position))
-    print(result)
 
 ## Recording of results and submissions
 `Astria` records all your submissions. Every single one. She also keeps the final submission of each problem, so don't be worried if you lost the right answer in your testing. This also means she can see your guesses and brute force answers, so solve wisely.
