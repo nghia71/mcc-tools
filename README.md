@@ -178,7 +178,7 @@ Similar to the first problem, the implementation for `my_fake_coin` can be teste
 
 You should see this result when testing it against Astria:
 
-    next_prime: [['OK', '8', 11], ['OK', '3', 3], ['OK', '3', 3]]    
+    fake_coin [['OK', '11011111', 2], ['OK', '11101111', 3], ['OK', '11101111', 3]]
 
 #### 3. Problem Three: Find the sequence of moves
 ##### The problem: *A knight stand on a square in the 3x3 chessboard. The squares on the board are number 1 to 9 from the top to the bottom row and from left to right. The number of the square where the knight stands is the position of the knight. Given the position, find the sequence of numbers that representing the squares the knight visit, each once, before return to the original squares.*
@@ -217,7 +217,7 @@ So from 1, you can move to 6 or 8. From 6 you can move to 7, but not back to 1, 
 
 You should see this result when testing it against Astria:
 
-    next_prime: [['OK', '8', 11], ['OK', '3', 3], ['OK', '3', 3]]    
+    move_sequence [['OK', '9', '92761834'], ['OK', '8', '81672943'], ['OK', '4', '43816729']]
 
 *Note: The problem asks to simulate move sequences, not to show done sequences. For example to simulate a move of a knight from square 1, you have two choices: square 6, or square 8. The way your code is written is to make the knight move on a preset sequence. You have to write a code that PLAYS the moves based on the chess rules.*
 
