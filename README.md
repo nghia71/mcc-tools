@@ -215,6 +215,15 @@ So from 1, you can move to 6 or 8. From 6 you can move to 7, but not back to 1, 
                 break
         return ''.join(['%s' % i for i in move_sequence])
 
+An example is given for how to submit for this problem:
+
+      ########################################
+      # Test 3 times if my_move_sequence function is correct
+      #
+      result = p.submit('move_sequence', my_move_sequence, 3)
+      print('move_sequence', result)
+
+
 You should see this result when testing it against Astria:
 
     move_sequence [['OK', '9', '92761834'], ['OK', '8', '81672943'], ['OK', '4', '43816729']]
